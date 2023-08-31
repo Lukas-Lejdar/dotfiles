@@ -1,13 +1,22 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
+export ZLE_RPROMPT_INDENT=0
 ZSH_THEME="powerlevel10k/powerlevel10k"
 autoload -U colors && colors	# Load colors
 setopt autocd
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-PATH="$PATH:$HOME/.cargo/bin"
 export TEXMFHOME=~/texmf
-zstyle ':omz:update' mode auto      # update automatically without asking
+PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin"
 
+zstyle ':omz:update' mode auto      # update automatically without asking
 source $ZSH/oh-my-zsh.sh
 source $HOME/antigen.zsh
 antigen use oh-my-zsh
@@ -18,15 +27,14 @@ antigen apply
 
 plugins=(chucknorris emotty )
 
-source /home/lukas/miniconda3/bin/activate tf
-source ~/.fzf-tab-completion/zsh/fzf-zsh-completion.sh
+source /home/lukas/.local/miniconda3/bin/activate tf
+source /opt/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval $(thefuck --alias)
 alias tlmgr=/usr/local/texlive/2023/bin/x86_64-linux/tlmgr --usermode
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias fzfb="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles.git/ --work-tree=$HOME'
 
 export FZF_DEFAULT_COMMAND="fdfind -H"
 export FZF_CTRL_T_COMMAND="fdfind -H"

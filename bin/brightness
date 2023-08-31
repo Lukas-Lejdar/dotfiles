@@ -12,18 +12,6 @@ do
 done
 echo $r
 
-python3 ~/python/brightness.py $inc $display $set $r
+echo $inc
 
-#mapfile -t displays < <( xrandr | grep ' connected' | awk '{print $1}' )
-#mapfile -t brightness < <( xrandr --verbose | grep 'Brightness' | awk '{print $2}' )
-#
-#if !([ -z "$display" ]); then displays=(${displays[$display]}); fi
-#if ([ -z "$inc" ]); then inc=0; fi
-#if ([ -z "$dec" ]); then dec=0; fi
-#
-#for i in "${!displays[@]}"; do
-#  v=$(bc -l <<<"${brightness[i]}+$inc-$dec")
-#  echo $val
-#  newBr=$(bc <<< "if ($v>1) 1 else if ($v<0) 0.1 else $v")
-#  xrandr --output ${displays[i]} --brightness $newBr
-#done
+/home/lukas/.local/miniconda3/envs/tf/bin/python3 /home/lukas/python/brightness.py $inc $display $set $r
