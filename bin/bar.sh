@@ -1,13 +1,5 @@
 #!/bin/dash
 
-# ^c$var^ = fg color
-# ^b$var^ = bg color
-
-interval=0
-
-# load colors
-. ~/.local/chadwm/bar_themes/onedark
-
 cpu() {
   cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
 
@@ -36,7 +28,7 @@ wlan() {
 }
 
 clock() {
-	printf " 󱑆  $(date '+%H:%M') "
+	printf " 󱑆  $(date '+%H:%M  %d/%m') "
 }
 
 sound() {
@@ -54,10 +46,8 @@ layout() {
   echo "󰘵 " $(xkblayout-state print "%s" | sed 's/%//') 
 }
 
-while true; do
+updatebar() {
+  xsetroot -name " $(cpu)  |  $(mem)  |  $(layout)  |  $(sound)  |  $(battery)  |  $(wlan)  |  $(clock) "
+}
 
-  [ $interval = 0 ] || [ $(($interval % 3600)) = 0 ]
-  interval=$((interval + 1))
-
-  sleep 1 && xsetroot -name " $(cpu)  |  $(mem)  |  $(layout)  |  $(sound)  |  $(battery)  |  $(wlan)  |  $(clock) "
-done
+$(updatebar)
