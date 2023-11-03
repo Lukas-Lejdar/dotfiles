@@ -54,8 +54,6 @@ endsnippet
 snippet table "Table environment" b
 \begin{table}[${1:htpb}]
 	\centering
-	\caption{${2:caption}}
-	\label{tab:${3:label}}
 	\begin{tabular}{${5:c}}
 	$0${5/((?<=.)c|l|r)|./(?1: & )/g}
 	\end{tabular}
@@ -95,6 +93,12 @@ snippet cor "Cor" bA
 }
 endsnippet
 
+snippet dfn "Dfn" bA
+\dfn{$1}{
+	$0
+}
+endsnippet
+
 snippet mprop "Mprop" bA
 \mprop{$1}{
 	$0
@@ -103,6 +107,12 @@ endsnippet
 
 snippet frm "frm" bA
 \frm{$0}
+endsnippet
+
+snippet thm "ehm" bA
+\thm{$1}{
+	$0
+}
 endsnippet
 
 snippet img "Image" b
@@ -131,9 +141,9 @@ snippet pac "Package" b
 \usepackage[${1:options}]{${2:package}}$0
 endsnippet
 
-#snippet => "implies" Ai
-#\implies
-#endsnippet
+snippet => "implies" Ai
+\implies
+endsnippet
 
 snippet =< "implied by" Ai
 \impliedby
@@ -156,13 +166,13 @@ endsnippet
 snippet dm "Math" wA
 \[
 ${1:${VISUAL}}
-.\] $0
+\] $0
 endsnippet
 
 snippet ali "Align" bA
 \begin{align*}
 	${1:${VISUAL}}
-.\end{align*}
+\end{align*}
 endsnippet
 
 
@@ -586,19 +596,31 @@ snippet nnn "bigcap" iA
 endsnippet
 
 snippet OO "emptyset" iA
-\O
+\mathbb{O}
 endsnippet
 
 snippet RR "real" iA
-\R
+\mathbb{R}
 endsnippet
 
 snippet QQ "Q" iA
-\Q
+\mathbb{Q}
 endsnippet
 
 snippet ZZ "Z" iA
-\Z
+\mathbb{Z}
+endsnippet
+
+snippet HH "H" iA
+\mathbb{H}
+endsnippet
+
+snippet DD "D" iA
+\mathbb{D}
+endsnippet
+
+snippet CC "C" iA
+\mathbb{C}
 endsnippet
 
 snippet <! "normal" iA
@@ -642,6 +664,30 @@ snippet cvec "column vector" iA
 \begin{pmatrix} ${1:x}_${2:1}\\\\ \vdots\\\\ $1_${2:n} \end{pmatrix}
 endsnippet
 
+snippet mmat "mmat" iA
+\begin{pmatrix} 
+	\sigma_{11} & \cdots & \sigma_{1n} \\\\
+	\vdots & \ddots & \vdots \\\\
+	\sigma_{n1} & \cdots & \sigma_{nn}
+\end{pmatrix} 
+endsnippet
+
+snippet cmat "mmat" iA
+\begin{pmatrix} 
+	\$$1\$ & \$$4\$ & \$$7\$ \\\\
+	\$$2\$ & \$$5\$ & \$$8\$ \\\\
+	\$$3\$ & \$$6\$ & \$$0\$ \\\\
+\end{pmatrix}                    
+endsnippet                       
+                                 
+snippet rmat "mmat" iA           
+\begin{pmatrix}                  
+	\$$1\$ & \$$2\$ & \$$3\$ \\\\
+	\$$4\$ & \$$5\$ & \$$6\$ \\\\
+	\$$7\$ & \$$8\$ & \$$0\$ \\\\
+\end{pmatrix} 
+endsnippet
+
 priority 10
 context "math()"
 snippet "bar" "bar" riA
@@ -674,13 +720,14 @@ snippet letw "let omega" iA
 Let $\Omega \subset \C$ be open.
 endsnippet
 
-
-snippet HH "H" iA
-\mathbb{H}
+snippet drawgrid "Draw Grid" iA
+\draw[step=1cm,gray,very thin] (-1.9,-1.9) grid (5.9,5.9);
 endsnippet
 
-snippet DD "D" iA
-\mathbb{D}
+snippet drawaxis "Draw Axis" iA
+\draw[step=1cm,gray,very thin] (-1.9,-1.9) grid (5.9,5.9);
+\draw[thick,->] (0,0) -- (4.5,0) node[anchor=north west] {x axis};
+\draw[thick,->] (0,0) -- (0,4.5) node[anchor=south east] {y axis};
 endsnippet
 
 # vim:ft=snippets
