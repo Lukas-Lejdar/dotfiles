@@ -8,6 +8,10 @@ export _JAVA_AWT_WM_NONREPARENTING=1 # for BurpSuite window adjustment
 setxkbmap -layout oh,cz -variant ,qwerty
 xset r rate 200 50 &
 /usr/bin/setxkbmap -option "caps:swapescape"
+xmodmap -e "keycode 104="
+xmodmap -e "keycode 109="
+xmodmap -e "keycode 112="
+xmodmap -e "keycode 117="
 
 google-chrome &
 feh --bg-scale $HOME/Pictures/Wallpapers/125254fc708bd9a722b4ef21ddf1ee88.jpg
@@ -18,5 +22,7 @@ systemctl --user import-environment DISPLAY XAUTHORITY &
 #xss-lock -- slock &dbus-update-activation-environment DISPLAY XAUTHORITY &
 
 /bin/bash /home/lukas/bin/barloop.sh &
+
+echo "Running"
 
 dwm > /home/lukas/.local/logs/dwm.log 2>&1
