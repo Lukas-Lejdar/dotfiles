@@ -5,24 +5,39 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#vpn.tis-brno.cz:8443
-#lukas
-#I-VPN_2FA
-#
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-12.4/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
+#setterm -linewrap off
 
 export ZLE_RPROMPT_INDENT=0
 ZSH_THEME="powerlevel10k/powerlevel10k"
+#ZSH_THEME="amresh"
 autoload -U colors && colors	# Load colors
 setopt autocd
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export TEXMFHOME=~/texmf
+export TEXMFHOME="~/texmf"
+export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64/"
 export OPENSSL_CONF=/etc/ssl # for phatom js
 export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$(go env GOPATH)/bin:$PATH"
 export SINK_NAME="alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink"
+export PATH="$PATH:$HOME/.local/flutter/bin"
+export PATH="$PATH:$HOME/.local/renderdoc_1.31/bin"
+export PATH="$PATH:/usr/local/cuda/bin"
+export PATH="$PATH:/usr/local/cuda/nvvm/bin"
+export PATH="$PATH:/home/lukas/node_modules/.bin/"
+export CUDA_TOOLKIT_ROOT_DIR="/usr/local/cuda/"
+
+export OPENCV_IO_ENABLE_OPENEXR=1
+
+# Meshroom
+export MESHROOM_ROOT="/home/lukas/.local/Meshroom/"
+export PATH=$PATH:/home/lukas/.local/Meshroom-2023.3.0/aliceVision/bin/
+export PYTHONPATH=$MESHROOM_ROOT:$PYTHONPATH
 
 zstyle ':omz:update' mode auto      # update automatically without asking
 source $ZSH/oh-my-zsh.sh
@@ -46,6 +61,8 @@ alias tlmgr=/usr/local/texlive/2023/bin/x86_64-linux/tlmgr --usermode
 alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles.git/ --work-tree=$HOME'
 alias gdb='gdb -tui'
 alias tisvpn="sudo openconnect vpn.tis-brno.cz:8443 --authgroup '[I-VPN_2FA]' -u lukas"
+alias snvim='sudo -E -s nvim'
+alias lf='lfrun'
 
 export FZF_DEFAULT_COMMAND="fdfind -H"
 export FZF_CTRL_T_COMMAND="fdfind -H"
