@@ -7,8 +7,12 @@ cpu() {
 }
 
 battery() {
+	case "$(cat /sys/class/power_supply/BAT0/status)" in
+  Charging) local icon="󰂄" ;;
+  *) local icon="󱟤" ;;
+	esac
   get_capacity="$(cat /sys/class/power_supply/BAT0/capacity)"
-  printf "  $get_capacity"
+  printf "$icon $get_capacity"
 }
 
 brightness() {
@@ -35,7 +39,7 @@ sound() {
   OFF=""
   HEADPHONE=`amixer sget Headphone | awk -F"[][]" '/dB/ { if ($6 == "on") print "󰋋 " $2; exit; }'`
   SPEAKER=`amixer sget Speaker | awk -F"[][]" '/dB/ { if ($6 == "on") print "󰓃 " $2; exit; }'`
-  if [[ -z $HEADPHONE ]] && [[ -z $SPEAKER ]]; then
+  if [ -z "$HEADPHONE" ] && [ -z "$SPEAKER" ]; then
     OFF="󰖁 0%"
   fi
   echo $SPEAKER $HEADPHONE $OFF
