@@ -1,6 +1,19 @@
 local fzf = require("fzf-lua");
 
-local fzf_opts={['-i']="", ['--multi']="", ['--bind']='"alt-a:select-all"',}
+fzf.setup{
+  winopts = {
+    preview = {
+      layout = "flex",
+      flip_columns = 140
+    },
+  },
+}
+
+local fzf_opts={
+  ['-i']="",
+  ['--multi']="",
+  ['--bind']='"alt-a:select-all"',
+}
 -- local fdfinf_opts=' . -type f -H --no-ignore-vcs -exec grep -Iq . {} \\; -print0'
 local fdfind_opts=' -t f -H --no-ignore-vcs'
 
@@ -18,7 +31,6 @@ vim.keymap.set('n', '<leader>ph',
 vim.keymap.set('n', '<leader>pg',
 function() fzf.live_grep({ }) end,
 { silent = true })
-
 
 -- Fzf lsp
 vim.keymap.set('n', '<leader>gr',
