@@ -1,6 +1,3 @@
-vim.keymap.set("i", "<C-j>", "<C-R>=UltiSnips#JumpForwards()<CR>")
-vim.keymap.set("i", "<C-k>", "<C-R>=UltiSnips#JumpBackwards()<CR>")
-
 vim.g.UltiSnipsExpandTrigger="<tab>"
 vim.g.UltiSnipsJumpForwardTrigger="<tab>"
 --vim.g.UltiSnipsJumpBackwardTrigger="<c-z>"
