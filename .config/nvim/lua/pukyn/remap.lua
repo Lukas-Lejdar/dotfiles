@@ -41,6 +41,13 @@ vim.keymap.set("i", "<S-left>", "<Esc>vb")
 vim.keymap.set("i", "<S-up>", "<Esc>v<Up>")
 vim.keymap.set("i", "<S-down>", "<Esc>v<down>")
 
+vim.keymap.set("n", "<C-h>", "<C-w>h")
+vim.keymap.set("n", "<C-j>", "<C-w>j")
+vim.keymap.set("n", "<C-k>", "<C-w>k")
+vim.keymap.set("n", "<C-l>", "<C-w>l")
+
+vim.keymap.set("n", "<C-up>", "<C-w>-")
+
 -- aply macro over visual range
 vim.keymap.set('x', '@', '":norm @" . getcharstr() . "<cr>"', { expr = true })
 

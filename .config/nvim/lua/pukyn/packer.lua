@@ -12,13 +12,15 @@ return require('packer').startup(function(use)
     use ('theprimeagen/harpoon')
     use ('tpope/vim-fugitive')
     use ('lervag/vimtex')
-    use ('SirVer/ultisnips')
     use ('KeitaNakamura/tex-conceal.vim')
     use ('xiyaowong/transparent.nvim')
     use { 'ibhagwan/fzf-lua'}
     use { 'nvim-lua/plenary.nvim' }
     use { 'akinsho/flutter-tools.nvim', }
     use({ 'rose-pine/neovim', as = 'rose-pine' })
+    use 'mfussenegger/nvim-dap'
+    use 'nvim-neotest/nvim-nio'
+    use 'rcarriga/nvim-dap-ui'
 
     use {
         'VonHeikemen/lsp-zero.nvim',
