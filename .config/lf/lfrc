@@ -1,0 +1,11 @@
+set ratios 1:2:3
+set cleaner ~/.config/lf/cleaner
+set previewer ~/.config/lf/preview
+set shellopts '-eu'
+set ifs "\n"
+set scrolloff 10
+set icons
+set hidden!
+
+map <enter> shell # use enter for shell commands
+map ` !true # show the result of execution of previous commands
