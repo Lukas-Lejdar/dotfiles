@@ -84,29 +84,22 @@ export CTRL_U_DIR="/"
 
 # ------------------ SHORTCUTS ------------------
 
-zle -N cd_with_fzf
-zle -N search_home_with_fzf
-zle -N nvim_with_fzf
 zle -N cd_home
-zle -N cd_ctrl_u
 zle -N kill-line
 
-bindkey ^f cd_with_fzf
-bindkey ^b search_home_with_fzf
-bindkey ^v nvim_with_fzf
 bindkey ^g cd_home
 bindkey ^u cd_ctrl_u
 bindkey ^k kill-line
 bindkey ^n backward-kill-line 
 bindkey ^h backward-kill-word # backspace and h 
 
-alias cf="cd_find"
+alias ff="cd_find"
 alias fv="find_vim"
 
 cd_find() {
-    local file=$(fdfind -t d -H | eval fzf $FZF_CTRL_T_OPTS) 
-    [ -z "$file" ] && return
-    cd "$(dirname $file)"
+    local folder=$(fdfind -t d -H | eval fzf $FZF_CTRL_T_OPTS) 
+    [ -z "$folder" ] && return
+    cd $folder
 }
 
 find_vim() {
