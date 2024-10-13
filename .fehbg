@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-scale '/home/lukas/Pictures/Wallpapers/125254fc708bd9a722b4ef21ddf1ee88.jpg' 
