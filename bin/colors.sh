@@ -1,5 +1,9 @@
 #!/bin/bash
 
+for i in {0..255} ; do
+    printf "\x1b[38;5;%smcolour%s\n" "${i}" "${i}"
+done
+
 for i in {0..16}; do
   echo -ne "\033[48;5;$(( 16 + i*4))m \033[0m"
 done

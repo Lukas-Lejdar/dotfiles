@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ $(tmux list-panes | wc -l) == 1 ]]; then
+  WINDOW_SPLIT=${WINDOW_SPLIT:='h'}
+  tmux join-pane -$WINDOW_SPLIT -t $(tmux list-windows | grep - | head -n 1 | cut -c 1)
+else
+  tmux break-pane
+fi

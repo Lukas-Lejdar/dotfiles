@@ -27,18 +27,15 @@ search_home_with_fzf() {
 }
 
 nvim_with_fzf() {
-    zle -N cd_home
-    bindkey ^h cd_home
-
     local selected_file=$(fdfind -H | eval fzf $FZF_CTRL_T_OPTS) 
     [ -z "$selected_file" ] && return
 
-    if [ -f "$selected_file" ]; then
+    if [[ -f "$selected_file" ]]; then
         BUFFER="nvim $selected_file"
         zle accept-line
     fi
 
-    if [ -d $selected_file ]; then
+    if [[ -d $selected_file ]]; then
         cd $selected_file
         BUFFER="nvim ."
         zle accept-line

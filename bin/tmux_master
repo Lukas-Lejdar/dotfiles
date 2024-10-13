@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#tmux new-session -d -s 7; tmux new-session -t 7 \; set-option destroy-unattached
+tmux 
+tmux set-option destroy-unattached on
+#tmux new-session -d
+#tmux set-option destroy-unattached on
+#tmux attach-session -t $(tmux ls -F '#{session_name}' | tail -n 1)
+
