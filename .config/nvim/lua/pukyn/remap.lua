@@ -1,10 +1,6 @@
 vim.g.mapleader = " "
 --vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- ultisnips
-vim.keymap.set("i", "<C-j>", "<C-R>=UltiSnips#JumpForwards()<CR>")
-vim.keymap.set("i", "<C-k>", "<C-R>=UltiSnips#JumpBackwards()<CR>")
-
 -- set working to current directory
 vim.keymap.set("n", "<leader>cd", ':cd %:p:h<CR>:pwd<CR>')
 
@@ -15,6 +11,16 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- move down a line inspite of wrapping
 vim.keymap.set("n", "<A-j>", "gj")
 vim.keymap.set("n", "<A-k>", "gk")
+
+-- ultisnips
+vim.keymap.set("i", "<C-j>", "<C-R>=UltiSnips#JumpForwards()<CR>")
+vim.keymap.set("i", "<C-k>", "<C-R>=UltiSnips#JumpBackwards()<CR>")
+
+vim.keymap.set("n", "<C-h>", "<C-W>h", {noremap = true})
+vim.keymap.set("n", "<C-j>", "<C-W>j", {noremap = true})
+vim.keymap.set("n", "<C-k>", "<C-W>k", {noremap = true})
+vim.keymap.set("n", "<C-l>", "<C-W>l", {noremap = true})
+vim.keymap.set("n", "<C-p>", "<C-W><C-p>", {noremap = true})
 
 -- keep kurzor to the left
 vim.keymap.set("n", "n", "nzz")
@@ -38,8 +44,8 @@ vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 
 vim.keymap.set("i", "<S-right>", "<Esc>ve")
 vim.keymap.set("i", "<S-left>", "<Esc>vb")
-vim.keymap.set("i", "<S-up>", "<Esc>v<Up>")
-vim.keymap.set("i", "<S-down>", "<Esc>v<down>")
+vim.keymap.set({"n", "i", "v"}, "<S-up>", "<up>")
+vim.keymap.set({"n", "i", "v"}, "<S-down>", "<down>")
 
 -- aply macro over visual range
 vim.keymap.set('x', '@', '":norm @" . getcharstr() . "<cr>"', { expr = true })

@@ -3,7 +3,7 @@
 
 global !p
 def math():
-	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 def comment(): 
 	return vim.eval('vimtex#syntax#in_comment()') == '1'
 def env(name):
@@ -160,6 +160,14 @@ if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
 else:
 	snip.rv = ''
 `$2
+endsnippet
+
+snippet ak "Math" wA 
+$ $1 $$0
+endsnippet
+
+snippet qq "Math" wA
+\quad $1
 endsnippet
 
 snippet dm "Math" wA
@@ -379,6 +387,11 @@ snippet tt "text mode" iA
 \text{$1}$0
 endsnippet
 
+context "math()"
+snippet deg "degrees" iA
+^{\circ}$0
+endsnippet
+
 snippet rij "mrij" i
 (${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}$0
 endsnippet
@@ -585,10 +598,6 @@ snippet inn "in " iA
 \in 
 endsnippet
 
-snippet NN "n" iA
-\N
-endsnippet
-
 snippet Nn "cap" iA
 \cap 
 endsnippet
@@ -607,6 +616,10 @@ endsnippet
 
 snippet OO "emptyset" iA
 \mathbb{O}
+endsnippet
+
+snippet NN "emptyset" iA
+\mathbb{N}
 endsnippet
 
 snippet RR "real" iA

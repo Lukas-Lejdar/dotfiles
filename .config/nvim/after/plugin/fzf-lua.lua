@@ -15,9 +15,8 @@ local fzf_opts={
   ['--bind']='"alt-a:select-all"',
 }
 -- local fdfinf_opts=' . -type f -H --no-ignore-vcs -exec grep -Iq . {} \\; -print0'
-local fdfind_opts=' -t f -H --no-ignore-vcs'
+local fdfind_opts=' -t f -H --no-ignore-vcs  -E ".git" '
 
--- Fzf navifation
 vim.keymap.set('n', '<leader>pf',
   function()
     fzf.files({cmd='fdfind'..fdfind_opts, fzf_opts=fzf_opts})
@@ -48,3 +47,11 @@ vim.keymap.set('n', '<leader>gD',
 vim.keymap.set('n', '<leader>gi',
   function() fzf.lsp_references() end,
   { silent = true })
+
+--1206092
+--fdfind -t f -H . $HOME  5,92s user 4,57s system 744% cpu 1,411 total
+--wc -l  0,03s user 0,05s system 5% cpu 1,411 total
+
+--1206077
+--fdfind -t f -H . $HOME  5,97s user 4,76s system 743% cpu 1,444 total
+--wc -l  0,02s user 0,07s system 6% cpu 1,443 total

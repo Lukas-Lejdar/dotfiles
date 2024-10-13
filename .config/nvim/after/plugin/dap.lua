@@ -1,0 +1,120 @@
+local dap = require('dap')
+local dapui = require('dapui')
+
+dapui.setup({
+  layouts = {
+    {
+      elements = {
+          { id = "repl", size = 0.5 },
+          { id = "scopes", size = 0.5 }
+      },
+      position = "bottom",
+      size =15
+    },
+    {
+      elements = {
+        { id = "watches", size=1 },
+      },
+      position = "left",
+      size = 60
+    },
+    {
+      elements = { "repl" },
+      position = "bottom",
+      size = 15
+    },
+  },
+  mappings = {
+    edit = "e",
+    expand = { "<CR>", "<2-LeftMouse>" },
+    open = "o",
+    remove = "d",
+    repl = "r",
+    toggle = "t"
+  },
+})
+
+vim.keymap.set('n', '<leader>k', function() require('dapui').eval() end)
+vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+vim.keymap.set('n', '<F6>', function() require('dap').restart() end)
+vim.keymap.set('n', '<F7>', function() require('dap').terminate() end)
+vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
+vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
+vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
+vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
+vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
+vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
+vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
+vim.keymap.set('n', '<leader>pb', function () require('fzf-lua').dap_breakpoints({ }) end)
+
+local function openui (reset)
+    local width = vim.o.columns
+    print(width)
+    if (width > 200) then
+        require('dapui').open({ layout = 1, reset=reset or 0 })
+        require('dapui').open({ layout = 2, reset=reset or 0 })
+    else
+        require('dapui').open({ layout = 3, reset=reset or 0 })
+    end
+end
+
+vim.keymap.set({'n', 'v'}, '<Leader>da', function() openui() end)
+vim.keymap.set({'n', 'v'}, '<Leader>do', function() openui({ reset=1 })  end)
+vim.keymap.set({'n', 'v'}, '<Leader>dc', function() require('dapui').close({ }) end)
+
+dap.listeners.before.attach.dapui_config = openui
+dap.listeners.before.launch.dapui_config = openui
+dap.listeners.before.event_terminated.dapui_config = openui
+
+-- Python
+
+dap.adapters.python = {
+  type = 'executable';
+  command = os.getenv('HOME') .. '/.virtualenvs/debugpy/bin/python';
+  args = { '-m', 'debugpy.adapter' };
+}
+
+dap.configurations.python = {
+  {
+    type = 'python';
+    request = 'launch';
+    name = "Launch file";
+    program = "${file}";
+    cwd = vim.fn.getcwd();
+    pythonPath = function()
+      return '/usr/bin/python'
+    end;
+  },
+}
+
+-- C/C++
+
+dap.adapters.codelldb = {
+  type = 'server',
+  port = "${port}",
+  executable = {
+    -- CHANGE THIS to your path!
+    command = '/home/lukas/.local/codelldb/extension/adapter/codelldb',
+    args = {"--port", "${port}"},
+
+    -- On windows you may have to uncomment this:
+    -- detached = false,
+  }
+}
+
+dap.configurations.cpp = {
+  {
+    name = "Launch file",
+    type = "codelldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = vim.fn.getcwd(),
+    stopOnEntry = false,
+  },
+}
+
+-- dap.configurations.c = dap.configurations.cpp
+-- dap.configurations.rust = dap.configurations.cpp
