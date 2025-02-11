@@ -8,13 +8,16 @@ vim.keymap.set("n", "<leader>cd", ':cd %:p:h<CR>:pwd<CR>')
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- move down a line inspite of wrapping
-vim.keymap.set("n", "<A-j>", "gj")
-vim.keymap.set("n", "<A-k>", "gk")
+vim.keymap.set("n", "j", "gj")
+vim.keymap.set("n", "k", "gk")
 
 -- ultisnips
 vim.keymap.set("i", "<C-j>", "<C-R>=UltiSnips#JumpForwards()<CR>")
 vim.keymap.set("i", "<C-k>", "<C-R>=UltiSnips#JumpBackwards()<CR>")
+vim.keymap.set("i", "<C-F>", "<Right>")
+vim.keymap.set("i", "<C-B>", "<Left>")
+vim.keymap.set("i", "<C-N>", "<Down>")
+vim.keymap.set("i", "<C-P>", "<Up>")
 
 vim.keymap.set("n", "<C-h>", "<C-W>h", {noremap = true})
 vim.keymap.set("n", "<C-j>", "<C-W>j", {noremap = true})
@@ -41,11 +44,6 @@ vim.keymap.set("v", "<leader>d", "\"_d")
 
 -- select and edit all same words as the one below cursor 
 vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
-
-vim.keymap.set("i", "<S-right>", "<Esc>ve")
-vim.keymap.set("i", "<S-left>", "<Esc>vb")
-vim.keymap.set({"n", "i", "v"}, "<S-up>", "<up>")
-vim.keymap.set({"n", "i", "v"}, "<S-down>", "<down>")
 
 -- aply macro over visual range
 vim.keymap.set('x', '@', '":norm @" . getcharstr() . "<cr>"', { expr = true })
