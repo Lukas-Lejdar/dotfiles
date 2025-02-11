@@ -8,4 +8,6 @@ set icons
 set hidden!
 
 map <enter> shell # use enter for shell commands
-map ` !true # show the result of execution of previous commands
+map ` !true
+
+cmd trash %set -f; gio trash $fx

@@ -2,6 +2,10 @@
 CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' \
 	-- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
 
+cmd trash %set -f; mv $fx ~/.trash
+cmd mkdir $mkdir $*
+
+
 image() {
 	if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
 		printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y":"%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' \
