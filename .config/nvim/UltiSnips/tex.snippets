@@ -13,31 +13,18 @@ endglobal
 
 
 snippet template "Basic template" b
-\documentclass[a4paper]{article}
+\documentclass[a4paper,11pt]{article}
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{textcomp}
-\usepackage[dutch]{babel}
-\usepackage{amsmath, amssymb}
-
-
-% figure support
-\usepackage{import}
-\usepackage{xifthen}
-\pdfminorversion=7
-\usepackage{pdfpages}
-\usepackage{transparent}
-\newcommand{\incfig}[1]{%
-	\def\svgwidth{\columnwidth}
-	\import{./figures/}{#1.pdf_tex}
-}
-
-\pdfsuppresswarningpagegroup=1
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{tikzsymbols}
+\usepackage{amssymb}
 
 \begin{document}
-	$0
+$0
 \end{document}
+
 endsnippet
 
 snippet beg "begin{} / end{}" bA
@@ -47,8 +34,38 @@ snippet beg "begin{} / end{}" bA
 endsnippet
 
 priority 100
-snippet ... "ldots" iA
+snippet ... "ldots" A
 \ldots
+endsnippet
+
+context "math()"
+snippet dot "dot" A
+\dot $0
+endsnippet
+
+context "math()"
+snippet bold "bold" A
+\boldsymbol{$1}$0
+endsnippet
+
+context "math()"
+snippet ddot "dot" A
+\ddot $0
+endsnippet
+
+context "math()"
+snippet grad "grad" A
+\text{grad} \, $0
+endsnippet
+
+context "math()"
+snippet div "div" A
+\text{div} \, $0
+endsnippet
+
+context "math()"
+snippet rot "rot" A
+\text{rot} \, $0
 endsnippet
 
 snippet table "Table environment" b
@@ -68,6 +85,22 @@ snippet fig "Figure environment" b
 \end{figure}
 endsnippet
 
+snippet mini "Minipages" b
+\begin{table}[htpb]
+    \begin{minipage}[b]{.45\linewidth}
+        \centering
+        \resizebox{\textwidth}{!}{ \input{} }
+        \caption{}
+    \end{minipage} 
+    \hfill
+    \begin{minipage}[b]{.45\linewidth}
+        \centering
+        \resizebox{\textwidth}{!}{ \input{} }
+        \caption{}
+    \end{minipage} 
+\end{table}
+endsnippet
+
 snippet enum "Enumerate" bA
 \begin{enumerate}
 	\item $0
@@ -84,34 +117,6 @@ snippet wrpf "Wrap Figure" bA
 \begin{wrapfigure}[10]{L}{5.7cm}
 	\includegraphics[width=5cm]{$0}
 \end{wrapfigure}%
-endsnippet
-
-snippet cor "Cor" bA
-\cor{$1}{
-	$0
-}
-endsnippet
-
-snippet dfn "Dfn" bA
-\dfn{$1}{
-	$0
-}
-endsnippet
-
-snippet mprop "Mprop" bA
-\mprop{$1}{
-	$0
-}
-endsnippet
-
-snippet frm "frm" bA
-\frm{$0}
-endsnippet
-
-snippet thm "ehm" bA
-\thm{$1}{
-	$0
-}
 endsnippet
 
 snippet img "Image" b
@@ -163,7 +168,7 @@ else:
 endsnippet
 
 snippet ak "Math" wA 
-$ $1 $$0
+\( $1 \) $0
 endsnippet
 
 snippet qq "Math" wA
@@ -171,9 +176,9 @@ snippet qq "Math" wA
 endsnippet
 
 snippet dm "Math" wA
-\[
-${1:${VISUAL}}
-\] $0
+\[ ${1:${VISUAL}} \]
+
+$0
 endsnippet
 
 snippet eq "Math" wA
@@ -346,7 +351,7 @@ snippet prod "product" w
 endsnippet
 
 snippet part "d/dx" w
-\frac{\partial ${1:V}}{\partial ${2:x}} $0
+\frac{\partial $1}{\partial $2} $0
 endsnippet
 
 context "math()"
@@ -519,7 +524,7 @@ endsnippet
 priority 300
 context "math()"
 snippet dint "integral" wA
-\int_{${1:-\infty}}^{${2:\infty}} ${3:${VISUAL}} $0
+\int_{-\infty}^{\infty} ${3:${VISUAL}} $0
 endsnippet
 
 priority 200
@@ -576,7 +581,7 @@ endsnippet
 
 context "math()"
 snippet set "set" wA
-\\{$1\\} $0
+\\{ $1 \\} $0
 endsnippet
 
 snippet || "mid" iA
@@ -651,7 +656,7 @@ snippet <! "normal" iA
 endsnippet
 
 snippet <> "hokje" iA
-\diamond 
+\langle $1 \rangle $0
 endsnippet
 
 
