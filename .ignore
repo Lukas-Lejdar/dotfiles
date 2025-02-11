@@ -7,7 +7,6 @@
 .cisco
 .cmake
 .conda
-.config
 .dart
 .dart-tool
 .dartServer
@@ -26,17 +25,16 @@
 .java
 .jupyter
 .keras
-.local
 .m2
 .mplayer
 .npm
 .nv
 .nvm
 .pki
+.pyenv
 .pub-cache
 .renderdoc
 .ssh
-.steam
 .stm32cubeide
 .stm32cubemx
 .stmcube
@@ -52,7 +50,6 @@ go
 New Folder
 node_modules
 pozustatky
-Public
 python
 rdc
 server
@@ -61,5 +58,4 @@ stm32
 STM32Cube
 STM32CubeIDE
 Templates
-tmp
 zmmf
