@@ -50,7 +50,6 @@ vim.keymap.set('n', '<leader>pb', function () require('fzf-lua').dap_breakpoints
 
 local function openui (reset)
     local width = vim.o.columns
-    print(width)
     if (width > 200) then
         require('dapui').open({ layout = 1, reset=reset or 0 })
         require('dapui').open({ layout = 2, reset=reset or 0 })
@@ -64,8 +63,9 @@ vim.keymap.set({'n', 'v'}, '<Leader>do', function() openui({ reset=1 })  end)
 vim.keymap.set({'n', 'v'}, '<Leader>dc', function() require('dapui').close({ }) end)
 
 dap.listeners.before.attach.dapui_config = openui
-dap.listeners.before.launch.dapui_config = openui
-dap.listeners.before.event_terminated.dapui_config = openui
+dap.listeners.before.launch.dapui_config = function() end
+dap.listeners.before.event_terminated.dapui_config = function() end
+dap.listeners.before.event_exited.dapui_config = function() end
 
 -- Python
 
@@ -82,8 +82,21 @@ dap.configurations.python = {
     name = "Launch file";
     program = "${file}";
     cwd = vim.fn.getcwd();
+
     pythonPath = function()
-      return '/usr/bin/python'
+      -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
+      -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
+      -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
+        return cwd .. '/venv/bin/python'
+      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+        return cwd .. '/.venv/bin/python'
+      elseif vim.fn.executable(cwd .. '/.pyenv/bin/python3') == 1 then
+        return cwd .. '/.pyenv/bin/python3'
+      else
+        return '/usr/bin/python'
+      end
     end;
   },
 }
@@ -103,16 +116,40 @@ dap.adapters.codelldb = {
   }
 }
 
+dap.adapters.gdb = {
+  type = "executable",
+  command = "/home/lukas/.local/gdb-14.2/gdb/gdb",
+  args = { "-i", "dap" }
+}
+
 dap.configurations.cpp = {
   {
-    name = "Launch file",
+    name = "Launch lldb",
     type = "codelldb",
     request = "launch",
     program = function()
       return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
     end,
+    args = function()
+      local userInput = vim.fn.input('Additional arguments: ')
+      return vim.split(userInput, '%s+')
+    end,
     cwd = vim.fn.getcwd(),
     stopOnEntry = false,
+  },
+  {
+    name = "Launch gdb",
+    type = "gdb",
+    request = "launch",
+    args = function()
+      local userInput = vim.fn.input('Additional arguments: ')
+      return vim.split(userInput, '%s+')
+    end,
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = "${workspaceFolder}",
+    stopAtBeginningOfMainSubprogram = false,
   },
 }
 
