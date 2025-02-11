@@ -93,18 +93,28 @@ bindkey ^k kill-line
 bindkey ^n backward-kill-line 
 bindkey ^h backward-kill-word # backspace and h 
 
-alias ff="cd_find"
+alias sd="search_dir"
+alias ff="find_file"
 alias fv="find_vim"
+alias ch="cd /home/lukas"
 
-cd_find() {
+search_dir() {
     local folder=$(fdfind -t d -H | eval fzf $FZF_CTRL_T_OPTS) 
     [ -z "$folder" ] && return
+    cd $folder
+}
+
+find_file() {
+    local file=$(fdfind -t f -H | eval fzf $FZF_CTRL_T_OPTS) 
+    [ -z "$file" ] && return
+    local folder=$(dirname "$file")
     cd $folder
 }
 
 find_vim() {
     local file=$(fdfind -H | eval fzf $FZF_CTRL_T_OPTS) 
     [ -z "$file" ] && return
+    [ -d "$file" ] && file="$file/."
     cd "$(dirname $file)"
     nvim "$(basename $file)"
 }
@@ -147,3 +157,6 @@ bindkey '^[^H' backward-kill-word
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# >>> xmake >>>
+test -f "/home/lukas/.xmake/profile" && source "/home/lukas/.xmake/profile"
+# <<< xmake <<<
