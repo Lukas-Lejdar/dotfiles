@@ -6,7 +6,7 @@ dapui.setup({
     {
       elements = {
           { id = "repl", size = 0.5 },
-          { id = "scopes", size = 0.5 }
+          { id = "console", size = 0.5 }
       },
       position = "bottom",
       size =15
@@ -50,7 +50,7 @@ vim.keymap.set('n', '<leader>pb', function () require('fzf-lua').dap_breakpoints
 
 local function openui (reset)
     local width = vim.o.columns
-    if (width > 200) then
+    if (width > 180) then
         require('dapui').open({ layout = 1, reset=reset or 0 })
         require('dapui').open({ layout = 2, reset=reset or 0 })
     else
@@ -107,19 +107,15 @@ dap.adapters.codelldb = {
   type = 'server',
   port = "${port}",
   executable = {
-    -- CHANGE THIS to your path!
     command = '/home/lukas/.local/codelldb/extension/adapter/codelldb',
     args = {"--port", "${port}"},
-
-    -- On windows you may have to uncomment this:
-    -- detached = false,
   }
 }
 
 dap.adapters.gdb = {
   type = "executable",
-  command = "/home/lukas/.local/gdb-14.2/gdb/gdb",
-  args = { "-i", "dap" }
+  command = "gdb",
+  args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
 }
 
 dap.configurations.cpp = {
@@ -128,11 +124,12 @@ dap.configurations.cpp = {
     type = "codelldb",
     request = "launch",
     program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-    args = function()
-      local userInput = vim.fn.input('Additional arguments: ')
-      return vim.split(userInput, '%s+')
+      local handle = io.popen("find ./build -type f -executable -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-")
+      local result = handle:read("*a")
+      handle:close()
+      local path = vim.fn.trim(result)
+      vim.notify("Launching executable: " .. path, vim.log.levels.INFO)
+      return path
     end,
     cwd = vim.fn.getcwd(),
     stopOnEntry = false,
@@ -141,12 +138,13 @@ dap.configurations.cpp = {
     name = "Launch gdb",
     type = "gdb",
     request = "launch",
-    args = function()
-      local userInput = vim.fn.input('Additional arguments: ')
-      return vim.split(userInput, '%s+')
-    end,
     program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      local handle = io.popen("find ./build -type f -executable -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-")
+      local result = handle:read("*a")
+      handle:close()
+      local path = vim.fn.trim(result)
+      vim.notify("Launching executable: " .. path, vim.log.levels.INFO)
+      return path
     end,
     cwd = "${workspaceFolder}",
     stopAtBeginningOfMainSubprogram = false,

@@ -24,3 +24,4 @@ vim.g.vimtex_view_method = 'zathura'
 -- following line. The default is usually fine and is the symbol "\".
 vim.g.maplocalleader = " "
 
+

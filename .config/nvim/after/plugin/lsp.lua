@@ -1,3 +1,9 @@
+vim.diagnostic.config({
+  virtual_text = {severity = {min = vim.diagnostic.severity.ERROR}},
+  signs = {severity = {min = vim.diagnostic.severity.ERROR}},
+  underline = {severity = {min = vim.diagnostic.severity.ERROR}},
+})
+
 local lsp_zero = require('lsp-zero')
 local lspconfig = require('lspconfig')
 local mason = require("mason").setup {
@@ -57,6 +63,5 @@ lspconfig.jdtls.setup{
     }
   }
 }
-
 
 lsp_zero.setup()

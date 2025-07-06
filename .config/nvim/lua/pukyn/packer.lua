@@ -23,25 +23,24 @@ return require('packer').startup(function(use)
     use { "iagorrr/noctis-high-contrast.nvim", as = "noctics" }
     use { "morhetz/gruvbox", as = "gruvbox" }
     use { "NLKNguyen/papercolor-theme", as = "papercolor" }
+    --use "jay-babu/mason-nvim-dap.nvim"
 
 
     use {
         'VonHeikemen/lsp-zero.nvim',
+
         branch = 'v2.x',
         requires = {
-            -- LSP Support
-            {'neovim/nvim-lspconfig'},             -- Required
+            {'neovim/nvim-lspconfig'},
             {'williamboman/mason.nvim',
               run = function()
                 pcall(vim.cmd, 'MasonUpdate')
               end,
             },
-            {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-            -- Autocompletion
-            {'hrsh7th/nvim-cmp'},     -- Required
-            {'hrsh7th/cmp-nvim-lsp'}, -- Required
-            {'L3MON4D3/LuaSnip'},     -- Required
+            {'williamboman/mason-lspconfig.nvim'},
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'L3MON4D3/LuaSnip'},
     }
 }
 end)

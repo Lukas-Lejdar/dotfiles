@@ -14,8 +14,11 @@ vim.keymap.set("n", "k", "gk")
 -- ultisnips
 vim.keymap.set("i", "<C-j>", "<C-R>=UltiSnips#JumpForwards()<CR>")
 vim.keymap.set("i", "<C-k>", "<C-R>=UltiSnips#JumpBackwards()<CR>")
+
+vim.keymap.set("i", "<C-H>", "<BS>")
 vim.keymap.set("i", "<C-F>", "<Right>")
 vim.keymap.set("i", "<C-B>", "<Left>")
+
 vim.keymap.set("i", "<C-N>", "<Down>")
 vim.keymap.set("i", "<C-P>", "<Up>")
 

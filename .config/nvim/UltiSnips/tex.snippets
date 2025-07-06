@@ -87,13 +87,13 @@ endsnippet
 
 snippet mini "Minipages" b
 \begin{table}[htpb]
-    \begin{minipage}[b]{.45\linewidth}
+    \begin{minipage}{.45\linewidth}
         \centering
         \resizebox{\textwidth}{!}{ \input{} }
         \caption{}
     \end{minipage} 
     \hfill
-    \begin{minipage}[b]{.45\linewidth}
+    \begin{minipage}{.45\linewidth}
         \centering
         \resizebox{\textwidth}{!}{ \input{} }
         \caption{}
@@ -168,7 +168,7 @@ else:
 endsnippet
 
 snippet ak "Math" wA 
-\( $1 \) $0
+$ $1 $ $0
 endsnippet
 
 snippet qq "Math" wA
@@ -181,7 +181,7 @@ snippet dm "Math" wA
 $0
 endsnippet
 
-snippet eq "Math" wA
+snippet eq "Math" bA
 \begin{equation}
 ${1:${VISUAL}}
 \end{equation}$0
@@ -292,10 +292,10 @@ snippet bmat "bmat" iA
 \begin{bmatrix} $1 \end{bmatrix} $0
 endsnippet
 
-#context "math()"
-#snippet () "left( right)" iA
-#\left( ${1:${VISUAL}} \right) $0
-#endsnippet
+context "math()"
+snippet () "left( right)" i
+\left( ${1:${VISUAL}} \right) $0
+endsnippet
 
 snippet lr "left( right)" i
 \left( ${1:${VISUAL}} \right) $0
@@ -529,10 +529,15 @@ endsnippet
 
 priority 200
 context "math()"
-snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|pi|zeta|int)' "ln" rwA
+snippet '(?<!\\)(arcsin|arccos|arctan|arccot|arccsc|arcsec|int)' "ln" rwA
 \\`!p snip.rv = match.group(1)`
 endsnippet
 
+priority 200
+context "math()"
+snippet '(?<!\\)(?<=\s)(alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|omicron|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega|Alpha|Beta|Gamma|Delta|Epsilon|Zeta|Eta|Theta|Iota|Kappa|Lambda|Mu|Nu|Xi|Omicron|Pi|Rho|Sigma|Tau|Upsilon|Phi|Chi|Psi|Omega)' "greeks" rwA
+\\`!p snip.rv = match.group(1)`
+endsnippet
 
 priority 100
 context "math()"
@@ -718,14 +723,8 @@ endsnippet
 
 priority 10
 context "math()"
-snippet "bar" "bar" riA
+snippet "bar" "bar" rw
 \bar{$1}$0
-endsnippet
-
-priority 100
-context "math()"
-snippet "([a-zA-Z])bar" "bar" riA
-\bar{`!p snip.rv=match.group(1)`}
 endsnippet
 
 priority 10
