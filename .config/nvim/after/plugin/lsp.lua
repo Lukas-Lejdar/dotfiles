@@ -7,6 +7,9 @@ vim.diagnostic.config({
 local lsp_zero = require('lsp-zero')
 local lspconfig = require('lspconfig')
 local mason = require("mason").setup {
+    ui = {
+        border = "rounded",  -- correct option, not winborder
+    },
     log_level = vim.log.levels.DEBUG
 }
 
