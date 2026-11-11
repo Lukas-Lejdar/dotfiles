@@ -25,11 +25,3 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-
-rm /home/lukas/.config/alacritty/themes/default.toml || :
-
-#Startx Automatically
-if [[ -z "$DISPLAY" ]] && [[ $(tty) = /dev/tty1 ]]; then
-  . startx
-  logout
-fi

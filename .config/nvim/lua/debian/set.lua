@@ -21,6 +21,6 @@ vim.opt.signcolumn = "yes"
 vim.o.termguicolors = false
 
 vim.cmd [[
- autocmd FileType tex setlocal spell spelllang=cs,en,csa
+ autocmd FileType tex setlocal spell spelllang=cs,en
 ]]
 

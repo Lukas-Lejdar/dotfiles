@@ -5,7 +5,6 @@ vim.diagnostic.config({
 })
 
 local lsp_zero = require('lsp-zero')
-local lspconfig = require('lspconfig')
 local mason = require("mason").setup {
     ui = {
         border = "rounded",  -- correct option, not winborder
@@ -16,14 +15,26 @@ local mason = require("mason").setup {
 lsp_zero.preset('recommended')
 
 local cmp = require('cmp')
-local cmp_mappings = lsp_zero.defaults.cmp_mappings({
+cmp.setup({
+  mapping = {
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<Tab>'] = cmp.mapping.confirm({select = true}),
     ['<C-Space>'] = cmp.mapping.complete(),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+  },
+})
+
+local cmp_mappings = lsp_zero.defaults.cmp_mappings({
 })
 
 lsp_zero.setup_nvim_cmp({
   mapping = cmp_mappings
 })
+
 
 local on_attach = function(client, bufnr)
   local opts = { buffer = bufnr, remap = false }
@@ -39,32 +50,84 @@ local on_attach = function(client, bufnr)
 end
 
 lsp_zero.on_attach(on_attach)
-lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls())
 
-lspconfig.dartls.setup{
-  on_attach = on_attach,
-  cmd = { "dart", 'language-server', '--protocol=lsp' },
-}
-
-lspconfig.pylsp.setup({
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          ignore = {'W391', 'E501', 'E722', 'E225'},
-          maxLineLength = 100
-        }
-      }
-    }
-  }
+require("mason-lspconfig").setup({
+  automatic_enable = true,
 })
 
-lspconfig.jdtls.setup{
-  java = {
-    project = {
-      sourcePaths = { '/home/lukas/tmp/jdk17u' }
-    }
-  }
-}
+--require("mason-lspconfig").setup({
+--  ensure_installed = { "pylsp", "clangd", "lua_ls" },
+--})
 
-lsp_zero.setup()
+--local capabilities = require('cmp_nvim_lsp').default_capabilities()
+--require('lspconfig').pylsp.setup({
+--    capabilities = capabilities,
+--})
+
+--lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls())
+--
+--lspconfig.dartls.setup{
+--  on_attach = on_attach,
+--  cmd = { "dart", 'language-server', '--protocol=lsp' },
+--}
+--
+--lspconfig.pylsp.setup({
+--  settings = {
+--    pylsp = {
+--      plugins = {
+--        pycodestyle = {
+--          ignore = {'W391', 'E501', 'E722', 'E225'},
+--          maxLineLength = 100
+--        }
+--      }
+--    }
+--  }
+--})
+--
+--lspconfig.jdtls.setup{
+--  java = {
+--    project = {
+--      sourcePaths = { '/home/lukas/tmp/jdk17u' }
+--    }
+--  }
+--}
+--
+--lsp_zero.setup()
+
+
+--local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+-- Lua language server
+--vim.lsp.config('lua_ls', {
+--    capabilities = lsp_capabilities,
+--    settings = lsp_zero.nvim_lua_ls().settings
+--})
+--vim.lsp.enable('lua_ls')
+
+-- Python language server
+--vim.lsp.config('pylsp', {
+--    capabilities = lsp_capabilities,
+--    on_attach = on_attach,
+--    settings = {
+--        pylsp = {
+--            plugins = {
+--                pycodestyle = {
+--                    ignore = {'W391', 'E501', 'E722', 'E225'},
+--                    maxLineLength = 100
+--                }
+--            }
+--        }
+--    }
+--})
+--vim.lsp.enable('pylsp')
+
+-- Java (jdtls)
+--vim.lsp.config('jdtls', {
+--    on_attach = on_attach,
+--    java = {
+--        project = {
+--            sourcePaths = { '/home/lukas/tmp/jdk17u' }
+--        }
+--    }
+--})
+--vim.lsp.enable('jdtls')

@@ -39,6 +39,7 @@ local plugins = {
     { 'rose-pine/neovim', name = 'rose-pine' },
     { "catppuccin/nvim", name = "catppuccin" },
     { "NLKNguyen/papercolor-theme", name = "papercolor" },
+    { 'petertriho/nvim-scrollbar' },
     {
         'VonHeikemen/lsp-zero.nvim',
 

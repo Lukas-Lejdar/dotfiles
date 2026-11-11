@@ -14,4 +14,4 @@ done
 echo $r
 echo $inc
 
-/home/lukas/.local/miniconda3/envs/tf/bin/python3 /home/lukas/python/brightness.py $inc $display $set $r
+/usr/bin/python3 /home/lukas/bin/brightness.py $inc $display $set $r

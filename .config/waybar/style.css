@@ -1,6 +1,6 @@
 * {
     font-family: JetBrainsMonoNerdFontPropo, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 window#waybar {
@@ -52,6 +52,11 @@ button:hover {
     background: rgba(0, 0, 0, 0.2);
 }
 
+#workspaces button.empty {
+    background: rgba(0, 0, 0, 0.2);
+    color: #bbbbbb
+}
+
 #workspaces button.active {
     background-color: #64727D;
     box-shadow: inset 0 -3px #ffffff;
@@ -71,6 +76,7 @@ button:hover {
 #cpu,
 #custom-loadavg,
 #custom-memory,
+#language,
 #memory,
 #disk,
 #temperature,
@@ -87,11 +93,12 @@ button:hover {
 #mpd {
     padding: 0 10px;
     color: #dddddd;
+    background-color: transparent;
 }
 
 #window,
 #workspaces {
-    margin: 0 4px;
+    margin: 0 2px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -132,22 +139,15 @@ button:hover {
 }
 
 #power-profiles-daemon {
-    padding-right: 15px;
 }
 
 #power-profiles-daemon.performance {
-    background-color: #f53c3c;
-    color: #ffffff;
 }
 
 #power-profiles-daemon.balanced {
-    background-color: #2980b9;
-    color: #ffffff;
 }
 
 #power-profiles-daemon.power-saver {
-    background-color: #2ecc71;
-    color: #000000;
 }
 
 label:focus {
@@ -169,7 +169,16 @@ label:focus {
 #backlight {
 }
 
+#custom-lan-speed {
+    margin-right: 0;
+    padding-right: 0;
+}
+
 #network {
+}
+
+#windowcount {
+    margin-left: 10;
 }
 
 #network.disconnected {
@@ -252,14 +261,6 @@ label:focus {
 
 #mpd.paused {
     background-color: #51a37a;
-}
-
-#language {
-    background: #00b093;
-    color: #740864;
-    padding: 0 5px;
-    margin: 0 5px;
-    min-width: 16px;
 }
 
 #keyboard-state {

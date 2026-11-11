@@ -3,5 +3,5 @@
 source $HOME/bin/bar.sh
 
 while true; do
-  sleep 1 && $(updatebar)
+  sleep 5 && $(updatebar)
 done

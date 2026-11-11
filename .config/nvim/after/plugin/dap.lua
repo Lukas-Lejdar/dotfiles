@@ -46,7 +46,8 @@ vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
 vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
 vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
-vim.keymap.set('n', '<leader>pb', function () require('fzf-lua').dap_breakpoints({ }) end)
+vim.keymap.set('n', '<leader>pb', function() require('fzf-lua').dap_breakpoints({ }) end)
+vim.keymap.set('n', '<leader>?', function() require('dapui').eval(nil, {enter = true}) end)
 
 local function openui (reset)
     local width = vim.o.columns
@@ -84,19 +85,7 @@ dap.configurations.python = {
     cwd = vim.fn.getcwd();
 
     pythonPath = function()
-      -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-      -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-      -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-      local cwd = vim.fn.getcwd()
-      if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-        return cwd .. '/venv/bin/python'
-      elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-        return cwd .. '/.venv/bin/python'
-      elseif vim.fn.executable(cwd .. '/.pyenv/bin/python3') == 1 then
-        return cwd .. '/.pyenv/bin/python3'
-      else
-        return '/usr/bin/python'
-      end
+      return vim.fn.trim(vim.fn.system("which python3"))
     end;
   },
 }
@@ -107,7 +96,7 @@ dap.adapters.codelldb = {
   type = 'server',
   port = "${port}",
   executable = {
-    command = '/home/lukas/.local/codelldb/extension/adapter/codelldb',
+    command = 'codelldb',
     args = {"--port", "${port}"},
   }
 }
@@ -124,7 +113,7 @@ dap.configurations.cpp = {
     type = "codelldb",
     request = "launch",
     program = function()
-      local handle = io.popen("find ./build -type f -executable -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-")
+      local handle = io.popen("find . -type f -executable -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-")
       local result = handle:read("*a")
       handle:close()
       local path = vim.fn.trim(result)
@@ -133,13 +122,14 @@ dap.configurations.cpp = {
     end,
     cwd = vim.fn.getcwd(),
     stopOnEntry = false,
+    initCommands = { 'command source ' .. os.getenv("HOME") .. '/.lldbinit', },
   },
   {
     name = "Launch gdb",
     type = "gdb",
     request = "launch",
     program = function()
-      local handle = io.popen("find ./build -type f -executable -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-")
+      local handle = io.popen("find . -type f -executable -printf '%T@ %p\n' | sort -n | tail -1 | cut -d' ' -f2-")
       local result = handle:read("*a")
       handle:close()
       local path = vim.fn.trim(result)

@@ -1,3 +1,5 @@
+
+
 vim.g.mapleader = " "
 --vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
@@ -28,6 +30,8 @@ vim.keymap.set("n", "<C-k>", "<C-W>k", {noremap = true})
 vim.keymap.set("n", "<C-l>", "<C-W>l", {noremap = true})
 vim.keymap.set("n", "<C-p>", "<C-W><C-p>", {noremap = true})
 
+vim.keymap.set("n", "<leader>a", "ggVG", {noremap = true})
+
 -- keep kurzor to the left
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
@@ -51,6 +55,11 @@ vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 -- aply macro over visual range
 vim.keymap.set('x', '@', '":norm @" . getcharstr() . "<cr>"', { expr = true })
 
+-- ctrl + s save
+vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
+
+
 -- Autoformat
 vim.api.nvim_create_augroup("AutoFormat", {})
 vim.api.nvim_create_autocmd(
@@ -63,3 +72,6 @@ vim.api.nvim_create_autocmd(
         end,
     }
 )
+
+vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "LSP rename" })
+

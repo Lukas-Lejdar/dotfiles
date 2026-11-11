@@ -48,6 +48,14 @@ vim.keymap.set('n', '<leader>gi',
   function() fzf.lsp_references() end,
   { silent = true })
 
+vim.keymap.set('n', '<leader>s',
+  function() fzf.spellcheck() end,
+  { silent = true })
+
+vim.keymap.set('n', '<leader>z',
+  function() fzf.spell_suggest() end,
+  { silent = true })
+
 --1206092
 --fdfind -t f -H . $HOME  5,92s user 4,57s system 744% cpu 1,411 total
 --wc -l  0,03s user 0,05s system 5% cpu 1,411 total

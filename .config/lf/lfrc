@@ -9,5 +9,3 @@ set hidden!
 
 map <enter> shell # use enter for shell commands
 map ` !true
-
-cmd trash %set -f; gio trash $fx

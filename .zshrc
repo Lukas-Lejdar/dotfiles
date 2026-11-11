@@ -32,13 +32,14 @@ export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64/"
 export OPENSSL_CONF=/etc/ssl # for phatom js
 export PATH="$PATH:$HOME/.cargo/bin:$HOME/.local/bin"
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$(go env GOPATH)/bin:$PATH"
+#export PATH="$(go env GOPATH)/bin:$PATH"
 export SINK_NAME="alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink"
 export PATH="$PATH:$HOME/.local/flutter/bin"
 export PATH="$PATH:$HOME/.local/renderdoc_1.31/bin"
+export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:/usr/local/cuda/bin"
 export PATH="$PATH:/usr/local/cuda/nvvm/bin"
-export PATH="$PATH:/home/lukas/node_modules/.bin/"
+export PATH="$PATH:$HOME/node_modules/.bin/"
 export CUDA_TOOLKIT_ROOT_DIR="/usr/local/cuda/"
 
 export OPENCV_IO_ENABLE_OPENEXR=1
@@ -52,6 +53,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 source $ZSH/oh-my-zsh.sh
 source $HOME/antigen.zsh
 source "$HOME/bin/functions.sh"
+source "$HOME/.pyenv/bin/activate"
 
 antigen use oh-my-zsh
 antigen bundle pip
@@ -62,18 +64,19 @@ antigen apply
 plugins=(tmux)
 
 #source /home/lukas/.local/miniconda3/bin/activate tf
-source /opt/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[[ ! "$PATH" == */home/lukas/.local/fzf/bin* ]] &&  PATH="${PATH:+${PATH}:}/home/lukas/.local/fzf/bin"
 
-eval $(thefuck --alias)
+source ~/.local/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+source <(fzf --zsh)
+
 alias tlmgr=/usr/local/texlive/2023/bin/x86_64-linux/tlmgr --usermode
 alias dotfiles='/usr/bin/git --git-dir=$HOME/dotfiles.git/ --work-tree=$HOME'
-alias gdb='gdb -tui'
 alias tisvpn="sudo openconnect vpn.tis-brno.cz:8443 --authgroup '[I-VPN_2FA]' -u lukas"
 alias snvim='sudo -E -s nvim'
 alias lf='lfrun'
 alias fd='fdfind'
+alias bat='batcat'
 
 export FZF_DEFAULT_COMMAND="fdfind -H"
 export FZF_CTRL_T_COMMAND="fdfind -H"
@@ -119,7 +122,6 @@ find_vim() {
     nvim "$(basename $file)"
 }
 
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/lukas/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -157,6 +159,13 @@ bindkey '^[^H' backward-kill-word
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # >>> xmake >>>
 test -f "/home/lukas/.xmake/profile" && source "/home/lukas/.xmake/profile"
 # <<< xmake <<<
+
+
+
+
+# opencode
+export PATH=/home/lukas/.opencode/bin:$PATH

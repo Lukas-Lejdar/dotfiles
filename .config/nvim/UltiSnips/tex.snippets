@@ -1,4 +1,4 @@
-#call UltiSnips#RefreshSnippets()
+#cal}l UltiSnips#RefreshSnippets()
 #gillescastel/latex-snippets
 
 global !p
@@ -40,11 +40,11 @@ endsnippet
 
 context "math()"
 snippet dot "dot" A
-\dot $0
+\dot{$0}
 endsnippet
 
 context "math()"
-snippet bold "bold" A
+snippet bold "bold" iA
 \boldsymbol{$1}$0
 endsnippet
 
@@ -137,8 +137,8 @@ snippet desc "Description" b
 \end{description}
 endsnippet
 
-snippet bf "Beefy text" A
-\textbf{$0}
+snippet bf "Beefy text" iA
+\textbf{${VISUAL}$1}$0
 endsnippet
 
 snippet pac "Package" b
@@ -168,7 +168,7 @@ else:
 endsnippet
 
 snippet ak "Math" wA 
-$ $1 $ $0
+\( $1 \) $0
 endsnippet
 
 snippet qq "Math" wA
@@ -176,7 +176,9 @@ snippet qq "Math" wA
 endsnippet
 
 snippet dm "Math" wA
-\[ ${1:${VISUAL}} \]
+\[ 
+    ${1:${VISUAL}}
+\]
 
 $0
 endsnippet
@@ -284,10 +286,18 @@ snippet floor "floor" iA
 \left\lfloor $1 \right\rfloor$0
 endsnippet
 
+context "math()"
 snippet pmat "pmat" iA
 \begin{pmatrix} $1 \end{pmatrix} $0
 endsnippet
 
+context "math()"
+snippet ip "ip" iA
+\langle $1, $2 \rangle $0
+endsnippet
+
+
+context "math()"
 snippet bmat "bmat" iA
 \begin{bmatrix} $1 \end{bmatrix} $0
 endsnippet
@@ -389,7 +399,7 @@ endsnippet
 
 context "math()"
 snippet tt "text mode" iA
-\text{$1}$0
+\text{${VISUAL}$1}$0
 endsnippet
 
 context "math()"
@@ -694,31 +704,7 @@ snippet bigfun "Big function" iA
 endsnippet
 
 snippet cvec "column vector" iA
-\begin{pmatrix} ${1:x}_${2:1}\\\\ \vdots\\\\ $1_${2:n} \end{pmatrix}
-endsnippet
-
-snippet mmat "mmat" iA
-\begin{pmatrix} 
-	\sigma_{11} & \cdots & \sigma_{1n} \\\\
-	\vdots & \ddots & \vdots \\\\
-	\sigma_{n1} & \cdots & \sigma_{nn}
-\end{pmatrix} 
-endsnippet
-
-snippet cmat "mmat" iA
-\begin{pmatrix} 
-	\$$1\$ & \$$4\$ & \$$7\$ \\\\
-	\$$2\$ & \$$5\$ & \$$8\$ \\\\
-	\$$3\$ & \$$6\$ & \$$0\$ \\\\
-\end{pmatrix}                    
-endsnippet                       
-                                 
-snippet rmat "mmat" iA           
-\begin{pmatrix}                  
-	\$$1\$ & \$$2\$ & \$$3\$ \\\\
-	\$$4\$ & \$$5\$ & \$$6\$ \\\\
-	\$$7\$ & \$$8\$ & \$$0\$ \\\\
-\end{pmatrix} 
+\begin{bmatrix} $1 \\\\ $2 \end{bmatrix}
 endsnippet
 
 priority 10
@@ -740,8 +726,12 @@ snippet "([a-zA-Z])hat" "hat" riA
 endsnippet
 
 snippet "(\\?\w+)(,\.|\.,)" "Vector postfix" riA
-\vec{`!p snip.rv=match.group(1)`}
+\mathbf{`!p snip.rv=match.group(1)`}
 endsnippet 
+
+snippet ,. "vector" A
+\mathbf{${VISUAL}$1}$0
+endsnippet
 
 snippet letw "let omega" iA
 Let $\Omega \subset \C$ be open.

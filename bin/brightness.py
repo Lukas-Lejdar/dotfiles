@@ -29,7 +29,6 @@ lastDisplayedPromt = ''
 
 try:
     isAlreadyRunning = lines[0].lower() in ['true', 'true\n', '1']
-
     lastDisplayedPromt = lines[1]
     hasRedshift = lines[2].lower() in ['true', 'true\n', '1']
 except:
@@ -52,7 +51,6 @@ brightness = out.decode('utf-8').split('\n')
 brightness.pop()
 
 # Handle brightness --------------------------
-
 
 def resetRedShiftOnDisplay(i):
     print(f"reset {displays[i]} to {brightness[i]}")

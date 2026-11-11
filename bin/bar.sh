@@ -37,12 +37,13 @@ clock() {
 
 sound() {
   OFF=""
-  HEADPHONE=`amixer sget Headphone | awk -F"[][]" '/dB/ { if ($6 == "on") print "󰋋 " $2; exit; }'`
-  SPEAKER=`amixer sget Speaker | awk -F"[][]" '/dB/ { if ($6 == "on") print "󰓃 " $2; exit; }'`
-  if [ -z "$HEADPHONE" ] && [ -z "$SPEAKER" ]; then
+  #HEADPHONE=`amixer sget Headphone | awk -F"[][]" '/dB/ { if ($6 == "on") print "󰋋 " $2; exit; }'`
+  #SPEAKER=`amixer sget Speaker | awk -F"[][]" '/dB/ { if ($6 == "on") print "󰓃 " $2; exit; }'`
+  MASTER=`amixer sget Master | awk -F"[][]" '/\[on\]/ { print "󰓃 " $2; exit; }'`
+  if [ -z "$HEADPHONE" ] && [ -z "$SPEAKER" ] && [ -z "$MASTER" ]; then
     OFF="󰖁 0%"
   fi
-  echo $SPEAKER $HEADPHONE $OFF
+  echo $SPEAKER $HEADPHONE $MASTER $OFF
 
 }
 
