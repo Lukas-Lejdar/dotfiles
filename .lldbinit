@@ -1,0 +1,4 @@
+command script import /home/lukas/.local/debug/eigen/lldb/eigenlldb.py
+script print("✅ .lldbinit loaded")
+
+#command script import "/home/lukas/.lldb-eigen-data-formatter/LLDB_Eigen_Data_Formatter.py"
